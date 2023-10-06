@@ -4,6 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>66996c47-998d-4379-9296-901ac1ec8d51</UserSecretsId>
   </PropertyGroup>
   
    <ItemGroup>
@@ -36,9 +37,6 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <ItemGroup>
-    <EditorConfigFiles Remove="C:\Work\Source\FinanceManager\FinanceManager\.editorconfig" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FinanceManager.Infrastructure\FinanceManager.Infrastructure.csproj" />

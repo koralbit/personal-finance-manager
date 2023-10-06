@@ -25,7 +25,8 @@ builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();
 //Register Syncfusion license https://help.syncfusion.com/common/essential-studio/licensing/how-to-generate
-//Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("YOUR LICENSE KEY");
+var SyncfusionLicenseKey = builder.Configuration["Syncfusion:LicenseKey"];
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(SyncfusionLicenseKey);
 // Configure the HTTP request pipeline.
 app.UseRequestLocalization(localizationOptions);
 
