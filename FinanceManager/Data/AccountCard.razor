@@ -1,0 +1,25 @@
+﻿@* @using Syncfusion.Blazor.Cards
+@using Syncfusion.Blazor.Buttons
+
+<SfCard ID="SecondCard" >
+    <CardHeader Title="@(Account.Name)" SubTitle="" ImageUrl="" />
+    <CardContent Content="@(Account.Description)" />
+      <CardFooter>
+          <CardFooterContent>
+              <table>
+                  <tr>
+                      <td> <div class="e-icons ChatIcon"></div></td>
+                      <td> <div class="e-icons StarIcon"></div></td>
+                      <td> <div class="e-icons AlarmIcon"></div></td>
+                  </tr>
+              </table>
+          </CardFooterContent>
+    </CardFooter>
+ </SfCard>
+
+
+@code {
+    [Parameter]
+    public Account Account { get; set; } = null!;
+}
+ *@
