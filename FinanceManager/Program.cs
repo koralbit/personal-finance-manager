@@ -12,16 +12,16 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddSyncfusionBlazor();
 builder.Services.AddSingleton(typeof(ISyncfusionStringLocalizer), typeof(SyncfusionLocalizer));
 
-var supportedCultures = new[] { "en-US", "es"};
+var supportedCultures = new[] { "en-US", "es" };
 var localizationOptions = new RequestLocalizationOptions()
     .SetDefaultCulture("es")
     .AddSupportedCultures(supportedCultures)
     .AddSupportedUICultures(supportedCultures);
 builder.Services.AddRazorPages();
 builder.Services.AddSignalR(e => { e.MaximumReceiveMessageSize = 102400000; });
-builder.Services.AddSignalR(e => { e.MaximumReceiveMessageSize = 102400000; });
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddScoped<AccountsService>();
 
 var app = builder.Build();
 //Register Syncfusion license https://help.syncfusion.com/common/essential-studio/licensing/how-to-generate

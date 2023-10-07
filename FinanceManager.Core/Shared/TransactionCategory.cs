@@ -1,4 +1,4 @@
-﻿namespace FinanceManager.Core;
+﻿namespace FinanceManager.Core.Shared;
 
 public class TransactionCategory
 {

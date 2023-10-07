@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Reflection.Emit;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using FinanceManager.Core;
+﻿using FinanceManager.Core.CreditCardEntity;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace FinanceManager.Infrastructure.Data;
 public class ApplicationDbContext : DbContext
@@ -20,8 +13,8 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-       
+
         base.OnModelCreating(builder);
     }
 }
-    
+

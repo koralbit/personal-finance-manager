@@ -1,9 +1,27 @@
 ﻿@page "/datagrid-features"
+@using FinanceManager.Core.CreditCardEntity;
+@using FinanceManager.Data;
+@using FinanceManager.Infrastructure.Data;
+@using Microsoft.EntityFrameworkCore;
 @using Syncfusion.Blazor.Grids
+
+@inject AccountsService AccountService
+
 <PageTitle>DataGrid</PageTitle>
 <h2>DataGrid</h2>
 <br/>
 @* <AccountCard Account="GetAccount()"></AccountCard> *@
+@if (CreditCards is null)
+{
+    <div>No Credit Cards</div>
+} else {
+    
+    @foreach (var CreditCard in CreditCards)
+    {
+        <div>@CreditCard.Name</div>
+        <div>@CreditCard.Balance</div>
+    }
+}
 <div id = "ControlRegion">
 <SfGrid  ID="Grid" DataSource="@Orders"  @ref="Grid" AllowPaging="true" AllowFiltering="true" AllowReordering="true" AllowResizing="true" AllowGrouping="true" AllowExcelExport="true" AllowSelection="true"
               AllowSorting="true" Toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update","ExcelExport","Search"})" Height="315" Width="900">        
@@ -57,7 +75,10 @@
 @code{
     public List<Order>? Orders { get; set; }
     SfGrid<Order>? Grid;
-    protected override void OnInitialized()
+
+    private List<CreditCard>? CreditCards { get; set; }
+
+    protected override async Task OnInitializedAsync()
     {
         Orders = Enumerable.Range(1, 75).Select(x => new Order()
         {
@@ -67,7 +88,25 @@
             OrderDate = DateTime.Now.AddDays(-x),
             ShipCountry = (new string[] { "USA", "UK", "CHINA", "RUSSIA", "INDIA" })[new Random().Next(5)]
         }).ToList();
+
+        try
+        {
+            //CreditCard creditCard = new CreditCard("Gold", "", 1000000.00m, 1, 20, 1, "1234", 150.00m);
+            
+            CreditCards = await AccountService.GetCreditCardsAsync();
+
+            //Context.CreditCards.Add(creditCard);
+
+            //creditCard.AddCharge("Test Charge",100.00m, 1, DateTimeOffset.Now);
+
+            //await Context.SaveChangesAsync();
+        }
+        finally
+        {
+        }
     }
+
+
     public void ToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
     {
         if (args.Item.Id == "Grid_excelexport")
@@ -83,7 +122,6 @@
         public double? Freight { get; set; }
         public string? ShipCountry { get; set; }
     }
-
     // public Account GetAccount() => new Account
     //     {
     //         AccountID = 1,

@@ -2,18 +2,17 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Globalization;
 
-namespace FinanceManager.Pages
+namespace FinanceManager.Pages;
+
+public class HostModel : PageModel
 {
-    public class HostModel : PageModel
+    public void OnGet()
     {
-        public void OnGet()
-        {
-            HttpContext.Response.Cookies.Append(
-                CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(
-                    new RequestCulture(
-                        CultureInfo.CurrentCulture,
-                        CultureInfo.CurrentUICulture)));
-        }
+        HttpContext.Response.Cookies.Append(
+            CookieRequestCultureProvider.DefaultCookieName,
+            CookieRequestCultureProvider.MakeCookieValue(
+                new RequestCulture(
+                    CultureInfo.CurrentCulture,
+                    CultureInfo.CurrentUICulture)));
     }
 }

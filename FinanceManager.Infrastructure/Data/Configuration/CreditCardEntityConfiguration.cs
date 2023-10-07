@@ -1,11 +1,7 @@
-﻿using FinanceManager.Core;
+﻿using FinanceManager.Core.CreditCardEntity;
+using FinanceManager.Core.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinanceManager.Infrastructure.Data.Configuration;
 public class CreditCardEntityConfiguration : IEntityTypeConfiguration<CreditCard>
@@ -14,11 +10,11 @@ public class CreditCardEntityConfiguration : IEntityTypeConfiguration<CreditCard
     {
         config.ToTable("CreditCards");
 
-        config.HasKey(e => e.Id);
+        config.HasKey(c => c.Id);
 
-        config.Ignore(b => b.DomainEvents);
+        config.Ignore(c => c.DomainEvents);
 
-        config.Property(e => e.Id)
+        config.Property(c => c.Id)
             .UseHiLo("creditcardseq");
 
         config.HasOne<FinanceEntity>()
@@ -26,21 +22,27 @@ public class CreditCardEntityConfiguration : IEntityTypeConfiguration<CreditCard
             .IsRequired()
             .OnDelete(DeleteBehavior.Restrict);
 
-        config.Property(e => e.Name)
+        config.Property(c => c.Name)
             .IsRequired()
             .HasMaxLength(50);
 
-        config.Property(e => e.Description)
+        config.Property(c => c.Description)
             .HasMaxLength(100);
 
-        config.Property(e => e.CreditLimit)
+        config.Property(c => c.Balance)
             .HasColumnType("decimal(18,2)");
+
+        config.Property(c => c.CreditLimit)
+            .HasColumnType("decimal(18,2)");
+
+        config.Property(c => c.Created).HasDefaultValueSql("GETUTCDATE()").IsRequired();
+        config.Property(c => c.Updated).HasDefaultValueSql("GETUTCDATE()").IsRequired();
+
+        config.Property(c => c.UserId).HasMaxLength(200).IsRequired();
 
         var navigation = config.Metadata.FindNavigation(nameof(CreditCard.Transactions));
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-        navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+        navigation?.SetPropertyAccessMode(PropertyAccessMode.Field);
 
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinanceManager.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231006070626_InitialCreate")]
+    [Migration("20231007071935_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -31,7 +31,7 @@ namespace FinanceManager.Infrastructure.Migrations
             modelBuilder.HasSequence("creditcardtransactionseq")
                 .IncrementsBy(10);
 
-            modelBuilder.Entity("FinanceManager.Core.CreditCard", b =>
+            modelBuilder.Entity("FinanceManager.Core.CreditCardEntity.CreditCard", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,8 +45,10 @@ namespace FinanceManager.Infrastructure.Migrations
                     b.Property<decimal>("Balance")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValueSql("GETUTCDATE()");
 
                     b.Property<decimal>("CreditLimit")
                         .HasColumnType("decimal(18,2)");
@@ -64,18 +66,21 @@ namespace FinanceManager.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("PaymentDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("PaymentDay")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("StatementDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("StatementDay")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("Updated")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Updated")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValueSql("GETUTCDATE()");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
@@ -84,7 +89,7 @@ namespace FinanceManager.Infrastructure.Migrations
                     b.ToTable("CreditCards", (string)null);
                 });
 
-            modelBuilder.Entity("FinanceManager.Core.CreditCardTransaction", b =>
+            modelBuilder.Entity("FinanceManager.Core.CreditCardEntity.CreditCardTransaction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -93,20 +98,23 @@ namespace FinanceManager.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"), "creditcardtransactionseq");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValueSql("GETUTCDATE()");
 
                     b.Property<int?>("CreditCardId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Date")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("TransactionCategoryId")
                         .HasColumnType("int");
@@ -114,8 +122,10 @@ namespace FinanceManager.Infrastructure.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Updated")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Updated")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValueSql("GETUTCDATE()");
 
                     b.HasKey("Id");
 
@@ -126,7 +136,7 @@ namespace FinanceManager.Infrastructure.Migrations
                     b.ToTable("CreditCardTransactions", (string)null);
                 });
 
-            modelBuilder.Entity("FinanceManager.Core.FinanceEntity", b =>
+            modelBuilder.Entity("FinanceManager.Core.Shared.FinanceEntity", b =>
                 {
                     b.Property<int>("FinanceEntityId")
                         .ValueGeneratedOnAdd()
@@ -157,7 +167,7 @@ namespace FinanceManager.Infrastructure.Migrations
                     b.ToTable("FinanceEntity");
                 });
 
-            modelBuilder.Entity("FinanceManager.Core.TransactionCategory", b =>
+            modelBuilder.Entity("FinanceManager.Core.Shared.TransactionCategory", b =>
                 {
                     b.Property<int>("TransactionCategoryId")
                         .ValueGeneratedOnAdd()
@@ -191,29 +201,29 @@ namespace FinanceManager.Infrastructure.Migrations
                     b.ToTable("TransactionCategory");
                 });
 
-            modelBuilder.Entity("FinanceManager.Core.CreditCard", b =>
+            modelBuilder.Entity("FinanceManager.Core.CreditCardEntity.CreditCard", b =>
                 {
-                    b.HasOne("FinanceManager.Core.FinanceEntity", null)
+                    b.HasOne("FinanceManager.Core.Shared.FinanceEntity", null)
                         .WithMany()
                         .HasForeignKey("FinanceEntityId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FinanceManager.Core.CreditCardTransaction", b =>
+            modelBuilder.Entity("FinanceManager.Core.CreditCardEntity.CreditCardTransaction", b =>
                 {
-                    b.HasOne("FinanceManager.Core.CreditCard", null)
+                    b.HasOne("FinanceManager.Core.CreditCardEntity.CreditCard", null)
                         .WithMany("Transactions")
                         .HasForeignKey("CreditCardId");
 
-                    b.HasOne("FinanceManager.Core.TransactionCategory", null)
+                    b.HasOne("FinanceManager.Core.Shared.TransactionCategory", null)
                         .WithMany()
                         .HasForeignKey("TransactionCategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FinanceManager.Core.CreditCard", b =>
+            modelBuilder.Entity("FinanceManager.Core.CreditCardEntity.CreditCard", b =>
                 {
                     b.Navigation("Transactions");
                 });

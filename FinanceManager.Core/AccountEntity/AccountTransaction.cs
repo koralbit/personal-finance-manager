@@ -1,6 +1,7 @@
-﻿namespace FinanceManager.Core;
+﻿using FinanceManager.Core.SeedWork;
+using FinanceManager.Core.Shared;
 
-public class CreditCardTransaction : Entity
+public class AccountTransaction : Entity
 {
     public string Description { get; private set; }
     public decimal Amount { get; private set; }
@@ -14,7 +15,7 @@ public class CreditCardTransaction : Entity
 
 
 
-    public CreditCardTransaction(
+    public AccountTransaction(
         string description,
         decimal amount,
         TransactionType type,

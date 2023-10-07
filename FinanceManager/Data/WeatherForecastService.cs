@@ -1,20 +1,22 @@
-﻿namespace FinanceManager.Data
-{
-    public class WeatherForecastService
-    {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+﻿using Microsoft.AspNetCore.Components;
+using Syncfusion.Blazor;
 
-        public Task<WeatherForecast[]> GetForecastAsync(DateOnly startDate)
+namespace FinanceManager.Data;
+
+public class WeatherForecastService : ComponentBase
+{
+    private static readonly string[] Summaries = new[]
+    {
+    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+};
+
+    public Task<WeatherForecast[]> GetForecastAsync(DateOnly startDate)
+    {
+        return Task.FromResult(Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
-            return Task.FromResult(Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = startDate.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            }).ToArray());
-        }
+            Date = startDate.AddDays(index),
+            TemperatureC = Random.Shared.Next(-20, 55),
+            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+        }).ToArray());
     }
 }

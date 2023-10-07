@@ -1,4 +1,4 @@
-﻿namespace FinanceManager.Core;
+﻿namespace FinanceManager.Core.Shared;
 
 public class FinanceEntity
 {
@@ -12,6 +12,6 @@ public class FinanceEntity
 
     public FinanceEntity()
     {
-        
+
     }
 }

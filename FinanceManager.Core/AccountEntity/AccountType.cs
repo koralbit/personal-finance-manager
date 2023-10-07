@@ -1,4 +1,4 @@
-﻿namespace FinanceManager.Core;
+﻿namespace FinanceManager.Core.AccountEntity;
 
 public enum AccountType
 {
