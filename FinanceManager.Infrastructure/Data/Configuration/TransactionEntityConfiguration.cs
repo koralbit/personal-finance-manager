@@ -4,16 +4,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FinanceManager.Infrastructure.Data.Configuration;
-public class CreditCardTransactionEntityConfiguration : IEntityTypeConfiguration<CreditCardTransaction>
+public class TransactionEntityConfiguration : IEntityTypeConfiguration<Transaction>
 {
-    public void Configure(EntityTypeBuilder<CreditCardTransaction> config)
+    public void Configure(EntityTypeBuilder<Transaction> config)
     {
-        config.ToTable("CreditCardTransactions");
+        config.ToTable("Transactions");
 
         config.HasKey(c => c.Id);
 
         config.Property(c => c.Id)
-            .UseHiLo("creditcardtransactionseq");
+            .UseHiLo("transactionseq");
 
         config.Ignore(c => c.DomainEvents);
 

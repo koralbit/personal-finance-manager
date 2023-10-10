@@ -1,4 +1,4 @@
-﻿namespace FinanceManager.Core.AccountEntity;
+﻿namespace FinanceManager.Core.Shared;
 
 public enum AccountType
 {

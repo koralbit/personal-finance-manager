@@ -1,0 +1,47 @@
+﻿@page "/accounts"
+@using FinanceManager.Core.CreditCardEntity;
+@using FinanceManager.Core.Shared;
+@using FinanceManager.Data;
+@inject AccountsService AccountService
+
+@if (CreditCards is null)
+{
+    <div>No Credit Cards</div>
+} else {
+    
+    @foreach (var CreditCard in CreditCards)
+    {
+        <div>@CreditCard.Name</div>
+        <div>@CreditCard.Balance</div>
+    }
+}
+<div>-------------------------------</div>
+@if (Accounts is null)
+{
+    <div>No Accounts</div>
+}
+else
+{
+
+    @foreach (var Account in Accounts)
+    {
+        <div>@Account.Name</div>
+        <div>@Account.Balance</div>
+    }
+}
+
+@code {
+
+    private List<CreditCardAccount>? CreditCards;
+    private List<Account>? Accounts;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            CreditCards = await AccountService.GetCreditCardsAsync();
+            Accounts = await AccountService.GetAccountsAsync();
+            StateHasChanged();
+        }
+    }
+}

@@ -1,4 +1,4 @@
-﻿namespace FinanceManager.Core.AccountEntity;
+﻿namespace FinanceManager.Core.CheckingAccountEntity;
 public class Transfer
 {
     public int TransferID { get; set; }
@@ -9,5 +9,4 @@ public class Transfer
     public string Description { get; set; } = null!;
     public DateTime Created { get; set; }
     public DateTime Updated { get; set; }
-    public string UserID { get; set; } = null!;
 }
