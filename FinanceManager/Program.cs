@@ -1,6 +1,9 @@
-﻿using FinanceManager.Data;
+﻿using Auth0.AspNetCore.Authentication;
+using FinanceManager.Data;
 using FinanceManager.Infrastructure;
 using FinanceManager.Shared;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Syncfusion.Blazor;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,12 +12,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddEnvironmentVariables();
 builder.Services.AddInfrastructureServices(builder.Configuration);
-builder.Services.AddSyncfusionBlazor();
+builder.Services
+    .AddAuth0WebAppAuthentication(options =>
+    {
+        options.Domain = builder.Configuration["Auth0:Domain"];
+        options.ClientId = builder.Configuration["Auth0:ClientId"];
+        options.Scope = ("openid profile email");
+    });
+    builder.Services.AddSyncfusionBlazor();
 builder.Services.AddSingleton(typeof(ISyncfusionStringLocalizer), typeof(SyncfusionLocalizer));
 
 var supportedCultures = new[] { "en-US", "es" };
 var localizationOptions = new RequestLocalizationOptions()
-    .SetDefaultCulture("es")
+    //.SetDefaultCulture("es")
     .AddSupportedCultures(supportedCultures)
     .AddSupportedUICultures(supportedCultures);
 builder.Services.AddRazorPages();
@@ -43,6 +53,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapRazorPages();
 app.MapControllers();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
