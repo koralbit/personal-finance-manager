@@ -9,10 +9,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\css\app.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4" />
     <PackageReference Include="Syncfusion.Blazor.Core" Version="23.1.41" />
     <PackageReference Include="Syncfusion.Blazor.Navigations" Version="23.1.41" />
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="23.1.41" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Styles\" />
+  </ItemGroup>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="npm run buildcss" />
+	</Target>
 </Project>
