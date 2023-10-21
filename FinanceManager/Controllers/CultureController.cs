@@ -15,7 +15,6 @@ public class CultureController : Controller
                 CookieRequestCultureProvider.MakeCookieValue(
                     new RequestCulture(culture)));
         }
-
         return LocalRedirect(redirectUri);
     }
 }

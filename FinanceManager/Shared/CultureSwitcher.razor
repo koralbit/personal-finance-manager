@@ -32,17 +32,8 @@
             case "en-US":
                 this.cultureIndex = 0;
                 break;
-            case "de":
+            case "es":
                 this.cultureIndex = 1;
-                break;
-            case "fr":
-                this.cultureIndex = 2;
-                break;
-            case "ar":
-                this.cultureIndex = 3;
-                break;
-            case "zh":
-                this.cultureIndex = 4;
                 break;
         }
         
@@ -60,17 +51,8 @@
         case "en-US":
          this.cultureIndex = 0;
          break;
-        case "de":
+        case "es":
          this.cultureIndex = 1;
-         break;
-        case "fr":
-         this.cultureIndex = 2;
-         break;
-        case "ar":
-         this.cultureIndex = 3;
-         break;
-        case "zh":
-         this.cultureIndex = 4;
          break;
        }
          NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
@@ -85,9 +67,6 @@
     List<Cultures> CultureList = new List<Cultures>
    {
         new Cultures() { Text = "English (en-US)", Code = "en-US" },
-        new Cultures() { Text = "German (de)", Code = "de" },
-        new Cultures() { Text = "French (fr)", Code = "fr" },
-        new Cultures() { Text = "Arabic (ar)", Code = "ar" },
-        new Cultures() { Text = "Chinese (zh)", Code = "zh" },
+        new Cultures() { Text = "Spanish (es)", Code = "es" },
     };
 }
