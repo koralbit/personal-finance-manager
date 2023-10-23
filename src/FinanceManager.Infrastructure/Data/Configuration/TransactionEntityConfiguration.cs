@@ -1,5 +1,4 @@
-﻿using FinanceManager.Core.CreditCardEntity;
-using FinanceManager.Core.Shared;
+﻿using FinanceManager.Core.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

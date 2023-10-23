@@ -1,10 +1,7 @@
 ﻿using Auth0.AspNetCore.Authentication;
-using FinanceManager.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Compact;
-using Serilog.Formatting.Json;
 
 namespace FinanceManager.Config;
 
@@ -21,7 +18,7 @@ public static class DependencyInjection
     private static void AddLogger(this IServiceCollection services)
     {
         Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Information ()
+            .MinimumLevel.Information()
             .MinimumLevel.Override("Default", LogEventLevel.Information)
             .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
             .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Information)
@@ -63,5 +60,5 @@ public static class DependencyInjection
                 options.Scope = ("openid profile email");
             });
     }
-    
+
 }

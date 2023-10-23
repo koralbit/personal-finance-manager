@@ -2,7 +2,6 @@
 using FinanceManager.Core.CreditCardEntity;
 using FinanceManager.Core.Shared;
 using FinanceManager.Infrastructure.Data;
-using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinanceManager.Data;

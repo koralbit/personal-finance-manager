@@ -36,7 +36,7 @@ public abstract class Account : Entity
         var expense = Transactions.Where(t => t.Type == TransactionType.Expense).Sum(t => t.Amount);
         Balance = income - expense;
     }
-    
+
     public void AddTransaction(string description, decimal amount, TransactionType transactionType, int categoryID, DateTimeOffset? date)
     {
         if (date == null)
@@ -45,7 +45,7 @@ public abstract class Account : Entity
             date = DateTimeOffset.Now;
             date = DateTimeOffset.UtcNow.ToLocalTime();
         }
-        Transaction transaction = new(description, amount, transactionType,categoryID, date.Value);
+        Transaction transaction = new(description, amount, transactionType, categoryID, date.Value);
         _transactions.Add(transaction);
         UpdateBalance();
     }

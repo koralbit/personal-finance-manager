@@ -1,11 +1,7 @@
-﻿using Auth0.AspNetCore.Authentication;
-using FinanceManager.Config;
+﻿using FinanceManager.Config;
 using FinanceManager.Data;
 using FinanceManager.Infrastructure;
 using FinanceManager.Shared;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Serilog;
 using Syncfusion.Blazor;
 

@@ -9,7 +9,7 @@ public class Transaction : Entity
     public DateTimeOffset Date { get; private set; }
     public TransactionType Type { get; private set; }
     public int TransactionCategoryId { get; private set; }
-    public int AccountId { get; private set;} 
+    public int AccountId { get; private set; }
     public DateTimeOffset Created { get; }
     public DateTimeOffset Updated { get; }
 

@@ -1,5 +1,4 @@
 ﻿using FinanceManager.Core.CreditCardEntity;
-using FinanceManager.Core.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -15,7 +14,7 @@ public class CreditCardEntityConfiguration : IEntityTypeConfiguration<CreditCard
 
         config.Property(c => c.PaymentDay)
             .IsRequired();
-        
+
         config.Property(c => c.StatementDay)
             .IsRequired();
     }
