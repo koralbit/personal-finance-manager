@@ -25,4 +25,7 @@
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="npm run buildcss" />
 	</Target>
+	<ItemGroup>
+		<InternalsVisibleTo Include="FinanceManager.Tests" />
+	</ItemGroup>
 </Project>
